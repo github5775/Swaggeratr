@@ -315,6 +315,8 @@ namespace Swaggerator
         }
         internal IEnumerable<Tuple<string, Operation>> GetOperations(MethodInfo[] methodInfos, Stack<Type> typeStack)
         {
+            //for services without interfaces
+
             for (int index = 0; index < methodInfos.Count(); index++)
             {
                 MethodInfo implementation = methodInfos[index];
