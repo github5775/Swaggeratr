@@ -34,7 +34,7 @@ namespace Swaggerator.Models
         }
 
         [DataMember]
-        public string method { get; set; }
+        public string method { get; set; }  //was httpMethod, but this created problems when trying to import into Azure API Mgmt Interface
         [DataMember]
         public string nickname { get; set; }
         [DataMember]

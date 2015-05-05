@@ -87,7 +87,6 @@ namespace Swaggerator
             //search all interfaces for this type for potential DataContracts, and build a set of operations
             Type[] interfaces = serviceType.GetInterfaces();
 
-
             if (IsValidInterfaceCollection(interfaces))
             {
                 foreach (Type i in interfaces)
@@ -115,13 +114,12 @@ namespace Swaggerator
                     method.operations.Add(t.Item2);
                 }
             }
-            else  //get methods
+            else  //get methods for services that do not implement an interface
             {
                 MethodInfo[] methodinfos = serviceType.GetMethods();
 
-                //InterfaceMapping map = new InterfaceMapping();
-                //map.TargetMethods = methodinfos;
                 operations.AddRange(GetOperations(methodinfos, typeStack));
+
                 //go through the discovered Operations, and combine any like Uri's into Methods.
                 foreach (Tuple<string, Operation> t in operations)
                 {
@@ -136,10 +134,6 @@ namespace Swaggerator
                     method.operations.Add(t.Item2);
                 }
             }
-
-
-
-
 
             return methods;
         }
@@ -214,7 +208,7 @@ namespace Swaggerator
                 Operation operation = new Operation
                 {
                     method = httpMethod,
-                    nickname = declaration.Name + httpMethod,
+                    nickname = declaration.Name,  // + httpMethod, removed because do not want to change the method names of the wcf service
                     type = returnTypeString,
                     summary = summary,
                     notes = description,
