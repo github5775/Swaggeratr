@@ -63,6 +63,7 @@
     <Content Include="Global.asax" />
     <Content Include="RESTful.svc" />
     <Content Include="SecondaryService.svc" />
+    <Content Include="ServiceThree.svc" />
     <Content Include="swagger-ui\css\print.css" />
     <Content Include="swagger-ui\css\reset.css" />
     <Content Include="swagger-ui\css\screen.css" />
@@ -121,6 +122,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ISecondaryService.cs" />
+    <Compile Include="IServiceThree.cs" />
     <Compile Include="RESTful.svc.cs">
       <DependentUpon>RESTful.svc</DependentUpon>
     </Compile>
@@ -128,6 +130,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecondaryService.svc.cs">
       <DependentUpon>SecondaryService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceThree.svc.cs">
+      <DependentUpon>ServiceThree.svc</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

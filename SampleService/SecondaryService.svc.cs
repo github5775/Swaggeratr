@@ -23,10 +23,10 @@ using System.ServiceModel.Web;
 
 namespace SampleService
 {
-	// NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "SecondaryService" in code, svc and config file together.
-	// NOTE: In order to launch WCF Test Client for testing this service, please select SecondaryService.svc or SecondaryService.svc.cs at the Solution Explorer and start debugging.
-    //[Swaggerator.Attributes.Swaggerated("/SecondaryService.svc", "Another endpoint")]
-	public class SecondaryService : ISecondaryService
+    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "SecondaryService" in code, svc and config file together.
+    // NOTE: In order to launch WCF Test Client for testing this service, please select SecondaryService.svc or SecondaryService.svc.cs at the Solution Explorer and start debugging.
+    [Swaggerator.Attributes.Swaggerated("/secondary", "Another endpoint")]
+    public class SecondaryService : ISecondaryService
     {
 		public void DoWork()
 		{
