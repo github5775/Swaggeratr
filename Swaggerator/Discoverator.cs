@@ -68,30 +68,17 @@ namespace Swaggerator
             Stream stream = GetServices(AppDomain.CurrentDomain);
             return stream;
         }
-        //public string GetServices()
-        //{
-        //    Stream stream = GetServices(AppDomain.CurrentDomain);
 
-        //    string json = StreamToString(stream);
-
-        //    return json;
-        //}
-        private static string StreamToString(Stream stream)
-        {
-            stream.Position = 0;
-            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
-            {
-                return reader.ReadToEnd();
-            }
-        }
         public Stream GetServices(AppDomain searchDomain)
         {
             Log("GetServices " + searchDomain.FriendlyName);
-
+            
             Models.ServiceList serviceList = new Models.ServiceList
             {
                 swaggerVersion = Globals.SWAGGER_VERSION,
-                apiVersion = "No Swaggerized assemblies."
+                apiVersion = "No Swaggerized assemblies.",
+                basePath = "/",
+                resourcePath = "/api-docs"
             };
 
             Assembly[] searchAssemblies = searchDomain.GetAssemblies();
