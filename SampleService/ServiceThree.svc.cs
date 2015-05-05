@@ -10,6 +10,7 @@ namespace SampleService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "ServiceThree" in code, svc and config file together.
     // NOTE: In order to launch
+    [ServiceContract]
     [Swaggerator.Attributes.Swaggerated("/tertiary", "Endpoint w/o interface")]
     //WCF Test Client for testing this service, please select ServiceThree.svc or ServiceThree.svc.cs at the Solution Explorer and start debugging.
     public class ServiceThree : IDisposable
