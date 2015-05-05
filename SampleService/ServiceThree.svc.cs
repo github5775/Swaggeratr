@@ -15,11 +15,11 @@ namespace SampleService
     //WCF Test Client for testing this service, please select ServiceThree.svc or ServiceThree.svc.cs at the Solution Explorer and start debugging.
     public class ServiceThree : IDisposable
     {
-       
+
         [WebGet(UriTemplate = "/work", ResponseFormat = WebMessageFormat.Json)]
         public string DoWork()
         {
-            return DateTime.Now.ToString();
+            return Environment.MachineName + ": " + DateTime.Now.ToString();
         }
 
         public void Dispose()
