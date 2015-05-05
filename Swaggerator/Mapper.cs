@@ -394,7 +394,7 @@ namespace Swaggerator
                 Operation operation = new Operation
                 {
                     method = httpMethod,
-                    nickname = implementation.Name + httpMethod,
+                    nickname = implementation.Name,  // + httpMethod, removed because do not want to change the method names of the wcf service
                     type = returnTypeString,
                     summary = summary,
                     notes = description,
