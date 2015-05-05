@@ -82,7 +82,7 @@ namespace Swaggerator
                         position = path.LastIndexOf("/");
                         if (position > -1)
                         {
-                            path = path.Substring(0, position - 1);
+                            path = path.Substring(0, position);
                         }
                     }
                 }
