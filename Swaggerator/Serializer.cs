@@ -86,7 +86,7 @@ namespace Swaggerator
                         }
                     }
                 }
-                writer.WriteValue(path);
+                writer.WriteValue(path + servicePath);
 
                 writer.WritePropertyName("resourcePath");
                 writer.WriteValue(string.Format(servicePath));

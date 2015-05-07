@@ -108,7 +108,7 @@ namespace Swaggerator
                                      select m).FirstOrDefault();
                     if (method == null)
                     {
-                        method = new Method { path = path + t.Item1 };
+                        method = new Method { path = t.Item1 };  //method = new Method { path = path + t.Item1 };
                         methods.Add(method);
                     }
                     method.operations.Add(t.Item2);
@@ -128,7 +128,7 @@ namespace Swaggerator
                                      select m).FirstOrDefault();
                     if (method == null)
                     {
-                        method = new Method { path = path + t.Item1 };
+                        method = new Method { path = t.Item1 };
                         methods.Add(method);
                     }
                     method.operations.Add(t.Item2);
