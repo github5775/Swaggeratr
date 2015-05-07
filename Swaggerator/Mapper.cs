@@ -424,7 +424,9 @@ namespace Swaggerator
                 {
                     var typeValue = HttpUtility.HtmlEncode(Helpers.MapSwaggerType(parameter.ParameterType, typeStack));
                     typeValue = Helpers.GetDataContractNamePropertyValue(parameter.ParameterType) ?? typeValue;
-
+                    //string paramDescription = (from p in HttpUtility.ParseQueryString(uri.Query).AllKeys
+                    //                    where HttpUtility.ParseQueryString(uri.Query).Get(p).ToLower().Equals("{" + name.ToLower() + "}")
+                    //                    select p).First();
                     Parameter parm = new Parameter
                     {
                         name = parameter.Name,
@@ -448,6 +450,10 @@ namespace Swaggerator
                         string paramName = (from p in HttpUtility.ParseQueryString(uri.Query).AllKeys
                                             where HttpUtility.ParseQueryString(uri.Query).Get(p).ToLower().Equals("{" + name.ToLower() + "}")
                                             select p).First();
+                        if (paramName!= name)
+                        {
+                            parm.description = name;
+                        }
                         parm.name = paramName;
                     }
                     //if we couldn't find it in the uri, it must be a body parameter

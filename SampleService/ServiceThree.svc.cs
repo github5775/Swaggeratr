@@ -22,6 +22,18 @@ namespace SampleService
             return Environment.MachineName + ": " + DateTime.Now.ToString();
         }
 
+        [WebGet(UriTemplate = "/work2?what={workId}", ResponseFormat = WebMessageFormat.Json)]
+        public string DoWork2(int workId)
+        {
+            return Environment.MachineName + "(" + workId.ToString() + "): " + DateTime.Now.ToString();
+        }
+
+        [WebGet(UriTemplate = "/work3?whatnow={date}", ResponseFormat = WebMessageFormat.Json)]
+        public string DoWork3(DateTime date)
+        {
+            return Environment.MachineName + "(" + date.ToString() + "): " + date.DayOfWeek;
+        }
+
         public void Dispose()
         {
             //

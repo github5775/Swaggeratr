@@ -32,45 +32,119 @@ namespace Swaggerator
 	{
 		private static readonly Regex _GenericTypeRegex = new Regex("^(.*)`.*");
 
+        //// original
+        //public static string MapSwaggerType(Type type, Stack<Type> typeMap, string typeNote = null)
+        //{
+        //	//built-in types
+        //	if (type == typeof (bool)) {return BuildTypeString("boolean", typeNote);}
+        //	if (type == typeof(byte)) { return BuildTypeString("integer", "8", typeNote); }
+        //	if (type == typeof (sbyte)) { return BuildTypeString("integer", "8, signed", typeNote);}
+        //	if (type == typeof (char)) { return BuildTypeString("character", typeNote); }
+        //	if (type == typeof(decimal)) { return BuildTypeString("decimal", typeNote); }
+        //	if (type == typeof(double)) { return BuildTypeString("double", typeNote); }
+        //	if (type == typeof(float)) { return BuildTypeString("float", typeNote); }
+        //	if (type == typeof(int)) { return BuildTypeString("integer", "32", typeNote); }
+        //	if (type == typeof(uint)) { return BuildTypeString("integer", "32, unsigned", typeNote); }
+        //	if (type == typeof(long)) { return BuildTypeString("integer", "64", typeNote); }
+        //	if (type == typeof(ulong)) { return BuildTypeString("integer", "64, unsigned", typeNote); }
+        //	if (type == typeof(short)) { return BuildTypeString("integer", "16", typeNote); }
+        //	if (type == typeof(ushort)) { return BuildTypeString("integer", "16, unsigned", typeNote); }
+        //	if (type == typeof(string)) { return BuildTypeString("string", typeNote); }
+        //	if (type == typeof(DateTime)) { return BuildTypeString("Date", typeNote); }
+        //	if (type == typeof (Guid)) { return BuildTypeString("string", typeNote);}
+        //	if (type == typeof(Stream)) { return BuildTypeString("stream", typeNote); }
 
-		public static string MapSwaggerType(Type type, Stack<Type> typeMap, string typeNote = null)
-		{
-			//built-in types
-			if (type == typeof (bool)) {return BuildTypeString("boolean", typeNote);}
-			if (type == typeof(byte)) { return BuildTypeString("integer", "8", typeNote); }
-			if (type == typeof (sbyte)) { return BuildTypeString("integer", "8, signed", typeNote);}
-			if (type == typeof (char)) { return BuildTypeString("character", typeNote); }
-			if (type == typeof(decimal)) { return BuildTypeString("decimal", typeNote); }
-			if (type == typeof(double)) { return BuildTypeString("double", typeNote); }
-			if (type == typeof(float)) { return BuildTypeString("float", typeNote); }
-			if (type == typeof(int)) { return BuildTypeString("integer", "32", typeNote); }
-			if (type == typeof(uint)) { return BuildTypeString("integer", "32, unsigned", typeNote); }
-			if (type == typeof(long)) { return BuildTypeString("integer", "64", typeNote); }
-			if (type == typeof(ulong)) { return BuildTypeString("integer", "64, unsigned", typeNote); }
-			if (type == typeof(short)) { return BuildTypeString("integer", "16", typeNote); }
-			if (type == typeof(ushort)) { return BuildTypeString("integer", "16, unsigned", typeNote); }
-			if (type == typeof(string)) { return BuildTypeString("string", typeNote); }
-			if (type == typeof(DateTime)) { return BuildTypeString("Date", typeNote); }
-			if (type == typeof (Guid)) { return BuildTypeString("string", typeNote);}
-			if (type == typeof(Stream)) { return BuildTypeString("stream", typeNote); }
+        //	if (type == typeof (void)) {return "None";}
 
-			if (type == typeof (void)) {return "None";}
+        //	//it's an enum, use string as the property type and enum values will be serialized later
+        //	if (type.IsEnum) { return "string"; }
 
-			//it's an enum, use string as the property type and enum values will be serialized later
-			if (type.IsEnum) { return "string"; }
+        //	//it's a collection/array, so it will use the swagger "container" syntax
+        //	if (type.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
+        //	{
+        //		return "array";
+        //	}
 
-			//it's a collection/array, so it will use the swagger "container" syntax
-			if (type.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
-			{
-				return "array";
-			}
+        //	//it's a complex type, so we'll need to map it later
+        //	if (!typeMap.Contains(type)) { typeMap.Push(type); }
+        //	return type.FullName;
+        //}
 
-			//it's a complex type, so we'll need to map it later
-			if (!typeMap.Contains(type)) { typeMap.Push(type); }
-			return type.FullName;
-		}
+        // 1.2 spec
+        public static string MapSwaggerType(Type type, Stack<Type> typeMap, string typeNote = null)
+        {
+            //built-in types
+            if (type == typeof(bool)) { return "boolean"; }
+            if (type == typeof(byte)) { return "byte"; }
+            if (type == typeof(sbyte)) { return "byte"; }
+            if (type == typeof(char)) { return "string"; }
+            if (type == typeof(decimal)) { return "number"; }
+            if (type == typeof(double)) { return "double"; }
+            if (type == typeof(float)) { return "float"; }
+            if (type == typeof(int)) { return "int32"; }
+            if (type == typeof(uint)) { return "int32"; }
+            if (type == typeof(long)) { return "int64"; }
+            if (type == typeof(ulong)) { return "int64"; }
+            if (type == typeof(short)) { return "integer"; }
+            if (type == typeof(ushort)) { return "integer"; }
+            if (type == typeof(string)) { return "string"; }
+            if (type == typeof(DateTime)) { return "date-time"; }
+            if (type == typeof(Guid)) { return "string"; }
+            if (type == typeof(Stream)) { return "stream"; }
 
-		private static string BuildTypeString(string typeName, string defaultNote = null, string typeNote = null)
+            if (type == typeof(void)) { return "None"; }
+
+            //it's an enum, use string as the property type and enum values will be serialized later
+            if (type.IsEnum) { return "string"; }
+
+            //it's a collection/array, so it will use the swagger "container" syntax
+            if (type.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
+            {
+                return "array";
+            }
+
+            //it's a complex type, so we'll need to map it later
+            if (!typeMap.Contains(type)) { typeMap.Push(type); }
+            return type.FullName;
+        }
+        //// azure 1.2
+        //public static string MapSwaggerType(Type type, Stack<Type> typeMap, string typeNote = null)
+        //{
+        //    //built-in types
+        //    if (type == typeof(bool)) { return "boolean"; }
+        //    if (type == typeof(byte)) { return "number"; }
+        //    if (type == typeof(sbyte)) { return "number"; }
+        //    if (type == typeof(char)) { return "string"; }
+        //    if (type == typeof(decimal)) { return "number"; }
+        //    if (type == typeof(double)) { return "number"; }
+        //    if (type == typeof(float)) { return "number"; }
+        //    if (type == typeof(int)) { return "number"; }
+        //    if (type == typeof(uint)) { return "number"; }
+        //    if (type == typeof(long)) { return "number"; }
+        //    if (type == typeof(ulong)) { return "number"; }
+        //    if (type == typeof(short)) { return "number"; }
+        //    if (type == typeof(ushort)) { return "number"; }
+        //    if (type == typeof(string)) { return "string"; }
+        //    if (type == typeof(DateTime)) { return "dateTime"; }
+        //    if (type == typeof(Guid)) { return "string"; }
+        //    if (type == typeof(Stream)) { return "stream"; }
+
+        //    if (type == typeof(void)) { return "None"; }
+
+        //    //it's an enum, use string as the property type and enum values will be serialized later
+        //    if (type.IsEnum) { return "string"; }
+
+        //    //it's a collection/array, so it will use the swagger "container" syntax
+        //    if (type.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
+        //    {
+        //        return "array";
+        //    }
+
+        //    //it's a complex type, so we'll need to map it later
+        //    if (!typeMap.Contains(type)) { typeMap.Push(type); }
+        //    return type.FullName;
+        //}
+        private static string BuildTypeString(string typeName, string defaultNote = null, string typeNote = null)
 		{
 			const string resultFormat = "{0}({1})";
 				
