@@ -1,7 +1,9 @@
 Swaggeratr
 ==========
 
-Swagger implementation for WCF REST services.
+Swagger implementation for WCF REST services, for code that not implements Interfaces as per best practice.
+
+The excellent code by superstator works with WCF servces code that implements Interfaces.  This is a modification I needed to make because I had a large collection of WCF code that our team needed to create Swagger for, yet did NOT implement Interfaces.  Therefore, to keep the project moving, I found this excellent code by superstator and added the ability to use reflection where Interfaces were not used in the WCF code.
 
 ## Getting Started
 
